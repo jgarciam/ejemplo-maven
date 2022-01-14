@@ -34,10 +34,16 @@ pipeline {
                 }
             }
         }
-        stage('SonarQube analysis') {
-            def scannerHome = tool 'SonarScanner 4.0';
-            withSonarQubeEnv('My SonarQube Server') {  
-                sh "${scannerHome}/bin/sonar-scanner"
+        stage("SonarQube analysis") {
+            steps {
+                script {
+                    dir('src'){
+                        def scannerHome = tool 'SonarScanner';
+                        withSonarQubeEnv('My SonarQube Server') {  
+                            sh "${scannerHome}/bin/sonar-scanner -Dsonar.projectKey=ejemplo-maven -Dsonar.java.binaries=build/classes"
+                        }
+                    }
+                }
             }
         }
         stage("Jar"){
