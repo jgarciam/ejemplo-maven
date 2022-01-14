@@ -11,6 +11,7 @@ pipeline {
                 script {
                     dir('src'){                    
                         sh 'git clone https://github.com/jgarciam/ejemplo-maven.git/ .'
+                        sh 'git checkout -b feature-sonar'
                     }
                 }
             }
