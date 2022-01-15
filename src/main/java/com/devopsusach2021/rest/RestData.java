@@ -1,6 +1,6 @@
-package com.devopsusach2020.rest;
+package com.devopsusach2021.rest;
 
-import com.devopsusach2020.Service.CollatzService;
+import com.devopsusach2021.service.CollatzService;
 import lombok.RequiredArgsConstructor;
 import lombok.experimental.FieldDefaults;
 import lombok.extern.slf4j.Slf4j;
