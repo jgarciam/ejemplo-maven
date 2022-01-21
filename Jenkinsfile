@@ -46,6 +46,19 @@ pipeline {
                 }
             }
         }
+
+        stage("Upload Nexus") {
+            steps {
+                script {
+                    dir('src'){
+                        nexusArtifactUploader artifacts: [[artifactId: 'DevOpsUsach2020', classifier: '', file: 'target/DevOpsUsach2020-0.0.1.jar', type: 'jar']], credentialsId: 'nexus', groupId: 'com.devopsusach2020', nexusUrl: 'nexus:8081', nexusVersion: 'nexus2', protocol: 'http', repository: 'test-nexus', version: '0.0.1'
+                    }
+                }
+            }
+        }
+
+
+
         stage("Jar"){
             steps {
                 script {
