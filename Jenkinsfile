@@ -11,7 +11,7 @@ pipeline {
                 script {
                     dir('src'){                    
                         sh 'git clone https://github.com/jgarciam/ejemplo-maven.git/ .'
-                        sh 'git checkout -b feature-sonar'
+                        sh 'git checkout -b feature-nexus'
                     }
                 }
             }
@@ -45,25 +45,21 @@ pipeline {
                     }
                 }
             }
-        }
-
-        stage("Upload Nexus") {
-            steps {
-                script {
-                    dir('src'){
-                        nexusArtifactUploader artifacts: [[artifactId: 'DevOpsUsach2020', classifier: '', file: 'target/DevOpsUsach2020-0.0.1.jar', type: 'jar']], credentialsId: 'nexus', groupId: 'com.devopsusach2020', nexusUrl: 'nexus:8081', nexusVersion: 'nexus2', protocol: 'http', repository: 'test-nexus', version: '0.0.1'
-                    }
-                }
-            }
-        }
-
-
-
+        }        
         stage("Jar"){
             steps {
                 script {
                     dir('src'){
                         sh './mvnw clean package -e'
+                    }
+                }
+            }
+        }
+        stage("Upload Nexus") {
+            steps {
+                script {
+                    dir('src'){
+                        nexusArtifactUploader artifacts: [[artifactId: 'DevOpsUsach2020', file: 'build/DevOpsUsach2020-0.0.1.jar', type: 'jar']], credentialsId: 'nexus', groupId: 'com.devopsusach2020', nexusUrl: 'nexus:8081', nexusVersion: 'nexus3', protocol: 'http', repository: 'test-nexus', version: '0.0.1'
                     }
                 }
             }
